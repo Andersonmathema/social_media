@@ -16,7 +16,7 @@ dependencies = [
 lint = 'ruff check'
 pre_format = 'ruff check --fix'
 format = 'ruff format'
-run = 'fastapi dev social_media/api/application.py'
+dev = 'fastapi dev social_media/api/application.py'
 prod = 'uvicorn social_media.api.application:app --host 0.0.0.0 --port 8000 --reload'
 pre_test = 'task lint'
 test = 'pytest -s -x --cov=fast_zero -vv'
