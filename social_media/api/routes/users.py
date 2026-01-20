@@ -1,4 +1,6 @@
 from fastapi import APIRouter
+from social_media.api.dtos.users import UserRegistration
+from social_media.datalayer.models.user import UserModel
 
 router = APIRouter(
     prefix="/users",
@@ -6,7 +8,17 @@ router = APIRouter(
     responses={404: {'description': "Not found"}},
 )
 
-@router.get('/')
-async def register():
-    return {'status': 'ok'}
+@router.post('/register')
+async def register(body: UserRegistration):
+    user = await UserModel.create(
+        name = body.name,
+        email = body.email,
+        password = body.password
+    )
+    return {'created': user}
 
+
+@router.get('/get-users')
+async def get_users():
+    users = await UserModel.all()
+    return {'users': users}
